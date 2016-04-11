@@ -44,8 +44,8 @@ class BasicTests(unittest.TestCase):
         ssl.PROTOCOL_SSLv23
         ssl.PROTOCOL_SSLv3
         ssl.PROTOCOL_TLSv1
-        ssl.PROTOCOL_TLSv11
-        ssl.PROTOCOL_TLSv12
+        ssl.PROTOCOL_TLSv1_1
+        ssl.PROTOCOL_TLSv1_2
         ssl.CERT_NONE
         ssl.CERT_OPTIONAL
         ssl.CERT_REQUIRED

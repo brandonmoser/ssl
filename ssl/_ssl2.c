@@ -69,7 +69,9 @@ enum py_ssl_version {
 	PY_SSL_VERSION_SSL3,
 	PY_SSL_VERSION_SSL23,
 	PY_SSL_VERSION_TLS1,
-        PY_SSL_VERSION_NOSSL2,
+	PY_SSL_VERSION_TLS1_1,
+	PY_SSL_VERSION_TLS1_2,
+	PY_SSL_VERSION_NOSSL2,
 };
 
 /* Include symbols from _socket module */
@@ -304,6 +306,10 @@ newPySSLObject(PySocketSockObject *Sock, char *key_file, char *cert_file,
 	PySSL_BEGIN_ALLOW_THREADS
 	if (proto_version == PY_SSL_VERSION_TLS1)
 		self->ctx = SSL_CTX_new(TLSv1_method()); /* Set up context */
+	if (proto_version == PY_SSL_VERSION_TLS1_1)
+		self->ctx = SSL_CTX_new(TLSv1_1_method()); /* Set up context */
+	if (proto_version == PY_SSL_VERSION_TLS1_2)
+		self->ctx = SSL_CTX_new(TLSv1_2_method()); /* Set up context */
 	else if (proto_version == PY_SSL_VERSION_SSL3)
 		self->ctx = SSL_CTX_new(SSLv3_method()); /* Set up context */
 #ifndef OPENSSL_NO_SSL2
@@ -1689,6 +1695,10 @@ init_ssl2(void)
 				PY_SSL_VERSION_SSL23);
 	PyModule_AddIntConstant(m, "PROTOCOL_TLSv1",
 				PY_SSL_VERSION_TLS1);
+	PyModule_AddIntConstant(m, "PROTOCOL_TLSv1_1",
+				PY_SSL_VERSION_TLS1_1);
+	PyModule_AddIntConstant(m, "PROTOCOL_TLSv1_2",
+				PY_SSL_VERSION_TLS1_2);
 	PyModule_AddIntConstant(m, "PROTOCOL_NOSSLv2",
 				PY_SSL_VERSION_NOSSL2);
 }

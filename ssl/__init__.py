@@ -53,6 +53,8 @@ PROTOCOL_SSLv2
 PROTOCOL_SSLv3
 PROTOCOL_SSLv23
 PROTOCOL_TLSv1
+PROTOCOL_TLSv11
+PROTOCOL_TLSv12
 PROTOCOL_NOSSLv2 -- anything except version 2
 """
 
@@ -62,7 +64,8 @@ import _ssl2             # if we can't import it, let the error propagate
 
 from _ssl2 import SSLError
 from _ssl2 import CERT_NONE, CERT_OPTIONAL, CERT_REQUIRED
-from _ssl2 import PROTOCOL_SSLv2, PROTOCOL_SSLv3, PROTOCOL_SSLv23, PROTOCOL_TLSv1, PROTOCOL_NOSSLv2
+from _ssl2 import PROTOCOL_SSLv2, PROTOCOL_SSLv3, PROTOCOL_SSLv23, PROTOCOL_TLSv1, PROTOCOL_TLSv1_1, PROTOCOL_TLSv1_2,\
+    PROTOCOL_NOSSLv2
 from _ssl2 import RAND_status, RAND_egd, RAND_add
 from _ssl2 import \
      SSL_ERROR_ZERO_RETURN, \
@@ -393,6 +396,10 @@ def get_server_certificate (addr, ssl_version=PROTOCOL_SSLv3, ca_certs=None):
 def get_protocol_name (protocol_code):
     if protocol_code == PROTOCOL_TLSv1:
         return "TLSv1"
+    if protocol_code == PROTOCOL_TLSv1_1:
+        return "TLSv1_1"
+    if protocol_code == PROTOCOL_TLSv1_2:
+        return "TLSv1_2"
     elif protocol_code == PROTOCOL_SSLv23:
         return "SSLv23"
     elif protocol_code == PROTOCOL_SSLv2:
